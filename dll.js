@@ -80,6 +80,45 @@ class DLL{
             this.length--; 
             return removeNode;
         }
+
+        //shift() method
+        shift(){
+          // return undefined if length is 0
+          if(this.length===0) return undefined; 
+          // define removeNode to be current head 
+          let removeNode = this.head; 
+
+          // set the value null to head and tail if length is 1
+          if(this.length===1){
+              this.head = null; 
+              this.tail = null;
+          } else {
+              //define newTail  and set it to tail and also set next of tail to be null
+              let newHead = removeNode.next;
+              this.head = newHead;
+              newHead.prev = null;
+          }
+          // decrease length by 1 and return removeNode
+          this.length--; 
+          removeNode.next = null; 
+          return removeNode;
+        }
+
+        //get method which take index as argument
+        get(index){
+            //return undefined if index is greater or equal to length or less than 0
+            if(index >= this.length || index < 0) return undefined; 
+            // define getNode to be current head and count equals to 0
+            let getNode = this.head;
+            let count = 0; 
+            //loop unless count is not equal to index
+            while(index !== count) {
+                //set getNode to be next of getNode
+                getNode = getNode.next; 
+                count++;
+            }
+            return getNode;
+        }
 }
 
 // create instance of DLL
