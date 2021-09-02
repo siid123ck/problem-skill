@@ -36,7 +36,26 @@ class SLL{
         return this;
     }
 
-    //
+    // unshift method, it take val aargument 
+    unshift(val){
+        //crete newNode using Node instance 
+        let newNode = new Node(val); 
+
+        //set head and tail newNode if length is 0
+        if(this.length===0){
+            this.head=newNode;
+            this.tail=this.head;
+        } else{
+            // store current head in variable
+            let currentHead = this.head; 
+            // set newNode to current head and current head to next of current head 
+            this.head = newNode; 
+            newNode.next = currentHead;
+        }
+        // increase length by 1 and return this
+        this.length++; 
+        return this; 
+    }
 }
 
 // create instance of SLL
