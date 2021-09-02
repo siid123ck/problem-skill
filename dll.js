@@ -119,6 +119,43 @@ class DLL{
             }
             return getNode;
         }
+
+        // set method 
+        set(index, val){
+            // define foundNode to be newNode by get() method
+            let foundNode = this.get(index);
+            // return false if not found node otherwise perform following action
+            if(!foundNode){
+                return false; 
+            } else {
+                foundNode.val = val; 
+                return true;
+            }
+        }
+
+        //remove method 
+        remove(index){
+            // return undefined if index is greater or equal to length or less than 0
+            if(index < 0 || index >= this.length) return undefined;
+            // return pop() method if index = length-1
+            if(index === this.length-1) return this.pop();
+            // return shift() method if index is 0
+            if(index===0) return this.shift(); 
+
+            // define removeNode to be newNode that come from using get method
+            let removeNode = this.get(index); 
+            // also set prevNode and nextNode 
+            let prevNode = removeNode.prev; 
+            let nextNode = removeNode.next; 
+            // set next of preNode to be nextNode and prev of nextNode to be prevNode
+            prevNode.next = nextNode; 
+            nextNode.prev = prevNode;
+
+            // set prev and next of removeNode null, decrease length and return removeNode;
+            removeNode.prev = null; 
+            removeNode.next = null; 
+            return removeNode;
+        }
 }
 
 // create instance of DLL
