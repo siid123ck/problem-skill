@@ -57,6 +57,29 @@ class DLL{
             this.length++; 
             return this; 
         }
+
+        //pop method 
+        pop(){
+            // return undefined if length is 0
+            if(this.length===0) return undefined; 
+            // define removeNode to be current head 
+            let removeNode = this.tail; 
+
+            // set the value null to head and tail if length is 1
+            if(this.length===1){
+                this.head = null; 
+                this.tail = null;
+            } else {
+                //define newTail  and set it to tail and also set next of tail to be null
+                let newTail = removeNode.prev;
+                this.tail = newTail;
+                newTail.next = null;
+            }
+            //decrease length by 1 and return removeNode
+            removeNode.prev = null; 
+            this.length--; 
+            return removeNode;
+        }
 }
 
 // create instance of DLL
