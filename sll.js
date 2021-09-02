@@ -56,9 +56,42 @@ class SLL{
         this.length++; 
         return this; 
     }
+
+    // pop method
+    pop(){
+        // define removeNode to be current head and tailNode without any value
+        let removeNode = this.head; 
+        let newTail;
+        //if length is 0, return undefined
+        if(this.length===0) return undefined;
+
+        //if length is 1, set head and tail value null
+        if(this.length===1){ 
+            this.head = null; 
+            this.tail=null;
+        } else{
+            //loop unless next of removeNode is null
+            while(removeNode.next !== null){
+                newTail = removeNode; 
+                removeNode = removeNode.next;
+            }
+            //set newTail to the tail 
+            this.tail= newTail;
+            //set next of tail the value null
+            newTail.next = null; 
+        }      
+
+        //decrease length by 1 and return removeNode
+        this.length--; 
+        return removeNode;
+    }
 }
 
 // create instance of SLL
 let list = new SLL(); 
-
+list.push(1)
+list.push(2)
+list.push(3)
+list.push(4)
+list.push(5)
 console.log(list)
