@@ -156,6 +156,31 @@ class DLL{
             removeNode.next = null; 
             return removeNode;
         }
+
+        //insert method
+        insert(index, val){
+            // return invalid if index less than 0 or greater than length
+            if(index < 0 || index > this.length) return `Invalid index (${index}) value`; 
+            // return push() method if index is equal to length
+            if(index === this.length) return this.push(val); 
+            // return unshift() method if index is equal to 0
+            if(index === 0) return this.unshift(val); 
+
+            // define preNode and nextNode to be new node from get method 
+            let prevNode = this.get(index-1); 
+            let nextNode = prevNode.next; 
+            // define newNode using class instance
+            let newNode = new Node(val); 
+            //set next of prevNode and prev of nextNode to be newNode  and vice-versa
+            prevNode.next = newNode;
+            nextNode.prev = newNode; 
+            newNode.prev = prevNode;
+            newNode.next = nextNode;
+
+            // increase length by 1 and return this
+            this.length++; 
+            return this;
+        }
 }
 
 // create instance of DLL
