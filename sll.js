@@ -1,3 +1,11 @@
+// time complexity of singlyLink List
+// push -> O(1) 
+// pop -> O(N)
+// search -> O(N)
+// access -> O(N)
+// remove -> O(1)
+// insert -> O(1)
+
 //signly link list 
 
 // create a node class 

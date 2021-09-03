@@ -1,9 +1,17 @@
+// time complexity of singlyLink List
+// push -> O(1) 
+// pop -> O(N)
+// search -> O(N)
+// access -> O(N)
+// remove -> O(1)
+// insert -> O(1) 
+
 // create Node class 
 class Node{
     constructor(val){
         this.val = val; 
         this.next = null; 
-        this.prev = null; 
+        this.prev = null; vvv
     }
 }
 
