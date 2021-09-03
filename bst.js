@@ -124,6 +124,25 @@ class BST{
         traverse(this.root);
         return data;
     }
+
+    // depth search tree in order
+    dstInOrder(){
+        // define data to be empty array
+        let data = []; 
+
+        // create helper function to do recursion
+       function traverse(startNode){
+           // check if startNode has left, call helper function itself with argument left node
+           if(startNode.left) traverse(startNode.left); 
+           //  push the node value in data
+           data.push(startNode.val);
+           // check if startNode has right, call helper function itself with argument right node
+            if(startNode.right) traverse(startNode.right);
+        }
+        //call helper function with argument root and return data
+        traverse(this.root);
+        return data;
+    }
 }
 
 // create instance of BST
