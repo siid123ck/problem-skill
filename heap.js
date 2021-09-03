@@ -29,6 +29,42 @@ class MaxHeap{
     }
 
     // extract method
+    extract(){
+        // set parentIdx to be 0 and set newParent to be last value
+        let parentIdx = 0; 
+        let newParent = this.values.pop();
+        let removeNode = this.values[parentIdx]; 
+        this.values[0] = newParent;  
+
+        // loop unless meat the condition
+        while(true){
+            // set leftIdx and rightidx using simple math
+            let leftIdx = parentIdx*2 + 1; 
+            let rightIdx = parentIdx*2 + 2; 
+            // define left child and rightchild if that particular index is less than langth
+            let leftChild = leftIdx < this.values.length ? this.values[leftIdx] : -Infinity; 
+            let rightChild = rightIdx < this.values.length ? this.values[rightIdx] : -Infinity;
+            let parent = this.values[parentIdx]; 
+            
+            // break the code if parent is greater than both left val and right val
+            if(parent > leftChild && parent > rightChild) break; 
+            // swap the value accordinngly 
+            if(leftChild > rightChild){
+                swap(this.values, leftIdx, parentIdx)
+            } else{
+                swap(this.values, rightIdx, parentIdx)
+            }
+        }
+        
+        function swap(arr, child, parent){
+            let temp = arr[child];
+            arr[child] = arr[parent]; 
+            arr[parent] = temp; 
+            parent = child;
+        }
+        
+        return removeNode;
+    }
 }
 
 //create instance Max heap
@@ -40,3 +76,4 @@ list.insert(6)
 list.insert(2)
 list.insert(9)
 console.log(list)
+
