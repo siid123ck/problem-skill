@@ -105,6 +105,25 @@ class BST{
         traverse(this.root);
         return data;
     }
+
+    // depth search post order
+    dstPost(){
+        // define data to be empty array
+        let data = []; 
+
+        // create helper function to do recursion
+       function traverse(startNode){
+           if(startNode.right) traverse(startNode.right);
+           // finally push the node value in data
+           // check if startNode has left, call helper function itself with argument left node
+           if(startNode.left) traverse(startNode.left); 
+           // check if startNode has right, call helper function itself with argument right node
+            data.push(startNode.val);
+        }
+        //call helper function with argument root and return data
+        traverse(this.root);
+        return data;
+    }
 }
 
 // create instance of BST
