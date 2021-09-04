@@ -185,6 +185,40 @@ class SLL{
         this.length++; 
         return true;
     }
+
+    // reverse list
+    reverse(){
+        // store current head in current an swap current head and tail
+        let current = this.head; 
+        this.head = this.tail; 
+        this.tail= current;
+        // define prev and next to be null
+        let prev = null; 
+        let next = null; 
+        //loop untill current is null
+        while(current !== null){
+            // first save current.next in variable next and set current.next to be previous node
+            next = current.next; 
+            current.next = prev;
+            // again set prev node to be current node and current node to be next node
+            prev = current;
+            current = next;
+        }
+       
+        return this;
+    }
+
+    reverseRecursive(){
+        let current = this.head;
+        function helper(prev=null, current){
+            if(current.next) helper(current, current.next)
+            current.next = prev; 
+        }
+        helper(null, current);
+        this.head = this.tail;
+        this.tail = current;
+        return this;
+    }
 }
 
 // create instance of SLL

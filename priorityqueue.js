@@ -35,6 +35,44 @@ class PriorityQueue{
             idx = parentIdx;
         }
     }
+
+    // extract method 
+    extract(){
+        // set parentIdx to be 0 and set newParent to be last value
+        let parentIdx = 0; 
+        let newParent = this.values.pop();
+        let removeNode = this.values[parentIdx]; 
+        this.values[0] = newParent;  
+
+        // loop unless meat the condition
+        while(true){
+            // set leftIdx and rightidx using simple math
+            let leftIdx = parentIdx*2 + 1; 
+            let rightIdx = parentIdx*2 + 2; 
+            // define left child and rightchild if that particular index is less than langth
+            let leftChild = leftIdx < this.values.length ? this.values[leftIdx].priority : Infinity; 
+            let rightChild = rightIdx < this.values.length ? this.values[rightIdx].priority : Infinity;
+            let parent = this.values[parentIdx].priority; 
+            
+            // break the code if parent is greater than both left val and right val
+            if(parent < leftChild && parent < rightChild) break; 
+            // swap the value accordinngly 
+            if(leftChild < rightChild){
+                swap(this.values, leftIdx, parentIdx)
+            } else{
+                swap(this.values, rightIdx, parentIdx)
+            }
+        }
+        
+        function swap(arr, child, parent){
+            let temp = arr[child];
+            arr[child] = arr[parent]; 
+            arr[parent] = temp; 
+            parent = child;
+        }
+        
+        return removeNode;
+    }
 }
 
 // create instance of class PriorityQueue
@@ -44,5 +82,10 @@ list.insert('susil', 10)
 list.insert('manis', 11)
 list.insert('pank', 3)
 list.insert('raj', 4)
+list.insert('sharma', 2)
+list.insert('susil', 19)
+list.insert('manis', 15)
+list.insert('pank', 30)
+list.insert('raj', 14)
 
 console.log(list)
