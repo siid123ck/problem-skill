@@ -31,4 +31,22 @@ var findMedianSortedArrays = function(nums1, nums2) {
     return result[mdSort] + (result[mdLong]-result[mdSort])/2;
 };
 
-console.log(findMedianSortedArrays([], [2]))
+// console.log(findMedianSortedArrays([], [2]))
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+ var addTwoNumbers = function(l1, l2) {
+    
+};
+let x = new ListNode(4)
+console.log()

@@ -222,10 +222,35 @@ class SLL{
 }
 
 // create instance of SLL
-let list = new SLL(); 
-list.push(1)
-list.push(2)
-list.push(3)
-list.push(4)
-list.push(5)
-console.log(list)
+let l1 = new SLL(); 
+let l2 = new SLL(); 
+l1.push(2)
+l1.push(4)
+l1.push(3)
+
+l2.push(5)
+l2.push(6)
+l2.push(8)
+// l2.push(1)
+
+var addTwoNumbers = function(l1, l2) {
+    let result = new Node(0); 
+    currentNode = result; 
+    let carry = 0;
+    while(l1.head || l2.head){
+        let v1 = l1.head ? l1.head.val : 0;
+        let v2 = l2.head ? l2.head.val : 0;
+        let sum = v1 + v2 + carry;
+        carry = Math.floor(sum/10);
+        sum = sum%10;
+        currentNode.next = new Node(sum)
+        currentNode = currentNode.next;
+        if(l1.head) l1.head = l1.head.next;
+        if(l2.head) l2.head = l2.head.next;
+    }
+   if(carry) currentNode.next = new Node(carry)
+
+    return result;
+ };
+
+ console.log(addTwoNumbers(l1, l2))
