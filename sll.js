@@ -250,7 +250,7 @@ var addTwoNumbers = function(l1, l2) {
     }
    if(carry) currentNode.next = new Node(carry)
 
-    return result;
+    return result.next;
  };
 
  console.log(addTwoNumbers(l1, l2))

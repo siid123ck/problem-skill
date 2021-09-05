@@ -33,20 +33,26 @@ var findMedianSortedArrays = function(nums1, nums2) {
 
 // console.log(findMedianSortedArrays([], [2]))
 
-/**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @return {ListNode}
- */
- var addTwoNumbers = function(l1, l2) {
-    
+var longestPalindrome = function(s) {
+    let max = s[0];
+    for(let i=0; i<s.length-1; i++){
+        for(j=2; j<=s.length; j++){
+            if(checkPalindrom(s.substr(i, j))){
+                if(max.length<s.substr(i,j).length) max = s.substr(i,j);
+            }
+        }
+    }
+
+   function checkPalindrom(str){
+        let reverseStr = [];
+        for (let i=str.length-1; i >= 0; i--) {
+            reverseStr.push(str[i])
+        }
+        return reverseStr.join('')===str;
+    }
+
+    return max;
 };
-let x = new ListNode(4)
-console.log()
+
+console.log(longestPalindrome("babad"))
+
