@@ -37,8 +37,8 @@ var longestPalindrome = function(s) {
     let max = s[0];
     for(let i=0; i<s.length-1; i++){
         for(j=2; j<=s.length; j++){
-            if(checkPalindrom(s.substr(i, j))){
-                if(max.length<s.substr(i,j).length) max = s.substr(i,j);
+            if(checkPalindrom(s.substring(i, j))){
+                if(max.length<s.substring(i,j).length) max = s.substring(i,j);
             }
         }
     }
@@ -54,5 +54,16 @@ var longestPalindrome = function(s) {
     return max;
 };
 
-console.log(longestPalindrome("babad"))
+// console.log(longestPalindrome("a"))
+
+function findFib(n){
+    let fibNums = [0, 1]; 
+    for(let i=2; i<=n; i++){
+        fibNums[i] = fibNums[i-1] + fibNums[i-2];
+    }
+    return fibNums[n]
+}
+
+// console.log(findFib(440))
+
 
