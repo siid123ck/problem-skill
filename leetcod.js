@@ -109,7 +109,40 @@ function canSum(targetSum, nums, memo={}){
     return memo[targetSum];
 }
 
-console.log(canSum(300, [7,14]))
+function howSum(targetSum, nums, memo={}){
+    if(targetSum in memo) return memo[targetSum];
+    if(targetSum===0) return []; 
+    if(targetSum<0) return null; 
+
+    for (let num of nums) {
+        let remainder = targetSum-num; 
+        let resultRemainder = howSum(remainder, nums, memo);
+        if(resultRemainder){
+            memo[targetSum] = [...resultRemainder, num];
+            return memo[targetSum]
+        } 
+    }
+    memo[targetSum] = null;
+    return memo[targetSum];
+}
+
+function bestSum(targetSum, nums){
+    if(targetSum===0) return []; 
+    if(targetSum<0) return null; 
+    let sortestCombination = null;
+
+    for (let num of nums) {
+        let remainder = targetSum-num; 
+        let resultRemainder = bestSum(remainder, nums);
+        if(resultRemainder){
+            let combination = [...resultRemainder, num];
+            if(sortestCombination===null || sortestCombination.length > combination.length) sortestCombination = combination
+        } 
+    } 
+    return sortestCombination;
+}
+
+console.log(bestSum(5, [3, 2, 5]))
 
 // function knapsack(items, values, target, end=items.length-1){
 //     let max = 0;
