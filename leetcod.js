@@ -66,4 +66,61 @@ function findFib(n){
 
 // console.log(findFib(440))
 
+function gridTravler(m, n, memo={}){
+    let key;
+    m<=n? key = m + "," + n : key = n + "," + m;
+    if(key in memo) return memo[key];
+    if(m===1 & n===0) return 1; 
+    if(m===0 || n===0) return 0;
+    memo[key] = gridTravler(m-1, n, memo)+gridTravler(m, n-1, memo); 
+    console.log(key)
+    return memo[key]; 
+}
 
+// console.log(gridTravler(4, 4))
+
+// function canSum(arr, target){
+//     let result ={}; 
+//     for(let i=0; i<arr.length; i++){
+//         if(result[target-arr[i]] >=0) return [arr[i], target-arr[i]];
+//         result[arr[i]] = i;
+//     }
+//     console.log(result)
+//     return false;
+// }
+// function canSum(arr, target, memo={}, i=0){
+//     if(memo[target-arr[i]]>=0) return true;
+//     memo[arr[i]]=i;
+//     i++;
+//     if(i < arr.length) return canSum(arr, target, memo, i);
+//     return false;
+// }
+
+function canSum(targetSum, nums, memo={}){
+    if(targetSum===0) return true; 
+    if(targetSum<0) return false;
+    if(targetSum in memo) return memo[targetSum];
+
+    for (let num of nums) {
+        let remainder = targetSum - num; 
+         if(canSum(remainder, nums, memo)) memo[targetSum] = true;
+    }
+    memo[targetSum] = false;
+    return memo[targetSum];
+}
+
+console.log(canSum(300, [7,14]))
+
+// function knapsack(items, values, target, end=items.length-1){
+//     let max = 0;
+//     if(end===0) return max; 
+//     console.log(items[end])
+//     if(items[end] <= target){
+//         max = max+ values[end] + knapsack(items, values, target-items[end], end-1)
+//     } else{
+//         knapsack(items, values, target, end-1)
+//     }
+//     return max;
+// }
+
+// console.log(knapsack([4, 2, 3, 5], [7, 3, 4, 1], 3))
