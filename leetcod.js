@@ -163,24 +163,27 @@ function canConstruct(target, wordBank, memo={}){
     return memo[target];
 }
 
-function countConstruct(target, wordBank){
-    if(target === "") return []; 
+function countConstruct(target, wordBank, memo={}){
+    if(target in memo) return memo[target];
+    if(target === "") return 1; 
+    let count = 0;
     
     for (let word of wordBank) {
         if(target.indexOf(word)===0){
             let suffix = target.slice(word.length);
-            let resultSuffix = countConstruct(suffix, wordBank); 
-            if(resultSuffix) return [word, ...resultSuffix]
+            let resultSuffix = countConstruct(suffix, wordBank, memo); 
+            if(resultSuffix) count += resultSuffix;
         }
     }
 
-    return null;
+    memo[target] = count;
+    return memo[target];
 }
 
 console.log(countConstruct('abcdef', ['abc', 'ab', 'd', 'ef']))
 console.log(countConstruct('siidsharma', ['abc', 'ab', 'd', 'ef']))
-console.log(countConstruct('purple', ['p', 'urple', 'pur', 'ple']))
-// console.log(countConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eee', 'eeee']))
+console.log(countConstruct('purple', ['p', 'urple', 'ur', 'pur', 'le']))
+console.log(countConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eee', 'eeee']))
 
 // function knapsack(items, values, target, end=items.length-1){
 //     let max = 0;
