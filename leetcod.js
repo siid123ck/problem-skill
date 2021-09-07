@@ -126,23 +126,25 @@ function howSum(targetSum, nums, memo={}){
     return memo[targetSum];
 }
 
-function bestSum(targetSum, nums){
+function bestSum(targetSum, nums, memo={}){
+    if(targetSum in memo) return memo[targetSum]
     if(targetSum===0) return []; 
     if(targetSum<0) return null; 
     let sortestCombination = null;
 
     for (let num of nums) {
         let remainder = targetSum-num; 
-        let resultRemainder = bestSum(remainder, nums);
+        let resultRemainder = bestSum(remainder, nums, memo);
         if(resultRemainder){
             let combination = [...resultRemainder, num];
             if(sortestCombination===null || sortestCombination.length > combination.length) sortestCombination = combination
         } 
     } 
-    return sortestCombination;
+    memo[targetSum] = sortestCombination;
+    return memo[targetSum]
 }
 
-console.log(bestSum(5, [3, 2, 5]))
+console.log(bestSum(500000, [1312, 2045]))
 
 // function knapsack(items, values, target, end=items.length-1){
 //     let max = 0;
