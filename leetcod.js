@@ -146,16 +146,18 @@ function bestSum(targetSum, nums, memo={}){
 
 // console.log(bestSum(500000, [1312, 2045]))
 
-function canConstruct(target, wordBank){
+function canConstruct(target, wordBank, memo={}){
+    if(target in memo) return memo[target]
     if(target ==="") return true; 
 
     for (let word of wordBank) {
         if(target.indexOf(word)===0){
             let suffix = target.slice(word.length); 
-            if(canConstruct(suffix, wordBank)) return true;
+            if(canConstruct(suffix, wordBank, memo)) memo[target] = true;
         }
     }
-    return false;
+    memo[target] = false;
+    return memo[target];
 }
 
 console.log(canConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eee', 'eeee']))
