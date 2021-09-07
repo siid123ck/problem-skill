@@ -144,7 +144,21 @@ function bestSum(targetSum, nums, memo={}){
     return memo[targetSum]
 }
 
-console.log(bestSum(500000, [1312, 2045]))
+// console.log(bestSum(500000, [1312, 2045]))
+
+function canConstruct(target, wordBank){
+    if(target ==="") return true; 
+
+    for (let word of wordBank) {
+        if(target.indexOf(word)===0){
+            let suffix = target.slice(word.length); 
+            if(canConstruct(suffix, wordBank)) return true;
+        }
+    }
+    return false;
+}
+
+console.log(canConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eee', 'eeee']))
 
 // function knapsack(items, values, target, end=items.length-1){
 //     let max = 0;
