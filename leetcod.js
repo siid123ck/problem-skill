@@ -148,19 +148,39 @@ function bestSum(targetSum, nums, memo={}){
 
 function canConstruct(target, wordBank, memo={}){
     if(target in memo) return memo[target]
-    if(target ==="") return true; 
+    if(target === "") return true; 
 
     for (let word of wordBank) {
         if(target.indexOf(word)===0){
             let suffix = target.slice(word.length); 
-            if(canConstruct(suffix, wordBank, memo)) memo[target] = true;
+            if(canConstruct(suffix, wordBank, memo)){
+                memo[target] = true;
+                return true;
+            } 
         }
     }
     memo[target] = false;
     return memo[target];
 }
 
-console.log(canConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eee', 'eeee']))
+function countConstruct(target, wordBank){
+    if(target === "") return []; 
+    
+    for (let word of wordBank) {
+        if(target.indexOf(word)===0){
+            let suffix = target.slice(word.length);
+            let resultSuffix = countConstruct(suffix, wordBank); 
+            if(resultSuffix) return [word, ...resultSuffix]
+        }
+    }
+
+    return null;
+}
+
+console.log(countConstruct('abcdef', ['abc', 'ab', 'd', 'ef']))
+console.log(countConstruct('siidsharma', ['abc', 'ab', 'd', 'ef']))
+console.log(countConstruct('purple', ['p', 'urple', 'pur', 'ple']))
+// console.log(countConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eee', 'eeee']))
 
 // function knapsack(items, values, target, end=items.length-1){
 //     let max = 0;
