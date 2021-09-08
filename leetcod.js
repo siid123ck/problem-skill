@@ -73,11 +73,25 @@ function gridTravler(m, n, memo={}){
     if(m===1 & n===0) return 1; 
     if(m===0 || n===0) return 0;
     memo[key] = gridTravler(m-1, n, memo)+gridTravler(m, n-1, memo); 
-    console.log(key)
+    // console.log(key)
     return memo[key]; 
 }
 
-// console.log(gridTravler(4, 4))
+function gridTravlerTab(m, n){
+    let table = Array(m+1).fill().map(()=>Array(n+1).fill(0))
+    for(let i = 1; i<=m; i++){
+        for(let j=1; j<=n; j++){
+            if(i === 1 && j === 1 ){
+               table[1][1] = 1;
+           } else table[i][j] = table[i][j-1] + table[i-1][j]
+        }
+    }
+   return table[m][n]
+
+}
+
+console.log(gridTravlerTab(4, 3))
+
 
 // function canSum(arr, target){
 //     let result ={}; 
@@ -177,13 +191,35 @@ function countConstruct(target, wordBank, memo={}){
     }
 
     memo[target] = count;
-    return memo[target];
+    return count;
 }
 
-console.log(countConstruct('abcdef', ['abc', 'ab', 'd', 'ef']))
-console.log(countConstruct('siidsharma', ['abc', 'ab', 'd', 'ef']))
-console.log(countConstruct('purple', ['p', 'urple', 'ur', 'pur', 'le']))
-console.log(countConstruct('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['e', 'ee', 'eee', 'eeee']))
+function constructAll(target, wordBank){
+    if(target==="") return [[]]; 
+    let possibleCombinations =[]; 
+
+    for (let word of wordBank) {
+        if(target.indexOf(word)===0){
+            let resultSuffix = constructAll(target.slice(word.length));
+            if(resultSuffix) possibleCombinations.push([word, ...resultSuffix])
+        } 
+    }
+    return possibleCombinations;
+}
+
+function fib(n){
+    let table = Array(n+1).fill(0)
+    table[1] =1;
+    for(let i=0; i<=n; i++){
+        console.log(table, table[i+1], table[i+2])
+        table[i+1] += table[i];
+        table[i+2] += table[i];
+        console.log(table, table[i+1], table[i+2])
+    }
+    return table[n]
+}
+
+// console.log(fib(7))
 
 // function knapsack(items, values, target, end=items.length-1){
 //     let max = 0;
