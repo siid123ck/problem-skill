@@ -171,7 +171,7 @@ function bestSumTab(targetSum, nums){
 
     return table[targetSum];
 }
-console.log(bestSumTab(100, [50, 3, 5, 25]))
+// console.log(bestSumTab(100, [50, 3, 5, 25]))
 
 function howSum(targetSum, nums, memo={}){
     if(targetSum in memo) return memo[targetSum];
@@ -226,6 +226,23 @@ function canConstruct(target, wordBank, memo={}){
     memo[target] = false;
     return memo[target];
 }
+
+function canConstructTab(target, wordBank){
+    let table = [true]; 
+
+    for(let i=0; i<target.length; i++){
+        if(table[i]){
+            for (const word of wordBank) {
+                if(target.slice(i, i+word.length)===word){
+                    table[i+ word.length] = true;
+                }
+            }
+        }
+    }
+    console.log(table)
+    return table[target.length]===true;
+}
+console.log(canConstructTab('abcdefg', ['de','g', 'ab', 'abc', 'ef', 'def']))
 
 function countConstruct(target, wordBank, memo={}){
     if(target in memo) return memo[target];
