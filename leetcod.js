@@ -94,7 +94,7 @@ function gridTravlerTab(m, n){
 
 }
 
-console.log(gridTravlerTab(3, 2))
+// console.log(gridTravlerTab(3, 2))
 
 
 // function canSum(arr, target){
@@ -126,6 +126,52 @@ function canSum(targetSum, nums, memo={}){
     memo[targetSum] = false;
     return memo[targetSum];
 }
+
+function canSumTab(targetSum, nums){
+    let table = [true]; 
+    for(let i=0; i<=targetSum; i++){
+        if(table[i]) {
+            for (const num of nums) {
+              if((num+i) <= targetSum)  table[num+i] = true;
+            }
+        }
+    }
+
+    console.log(table)
+    return table[targetSum]===true;
+}
+
+function howSumTab(targetSum, nums){
+    let table = [[]]; 
+    for(let i =0; i<targetSum; i++){
+        if(table[i]) {
+            for(const num of nums){
+                if(i+num <= targetSum) {
+                    table[i+num] = [...table[i], num]
+                }
+            }
+        }
+    }
+
+    return table[targetSum];
+}
+
+function bestSumTab(targetSum, nums){
+    let table = [[]]; 
+
+    for (let i=0; i<targetSum; i++) {
+        if(table[i]) {
+            for (const num of nums) {
+                let combination = [...table[i], num]
+                if(!table[i+num] || table[i+num].length>combination.length) 
+                table[i+num] = combination;
+            }
+        }
+    }
+
+    return table[targetSum];
+}
+console.log(bestSumTab(100, [50, 3, 5, 25]))
 
 function howSum(targetSum, nums, memo={}){
     if(targetSum in memo) return memo[targetSum];
