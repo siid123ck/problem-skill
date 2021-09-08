@@ -242,7 +242,23 @@ function canConstructTab(target, wordBank){
     console.log(table)
     return table[target.length]===true;
 }
-console.log(canConstructTab('abcdefg', ['de','g', 'ab', 'abc', 'ef', 'def']))
+
+function countConstructTab(target, wordBank){
+    let table = [[]]; 
+    for(let i=0; i<target.length; i++){
+        if(table[i]){
+            for (const word of wordBank) {
+                if(target.slice(i, i+word.length)===word){
+                    table[i+ word.length] = [...table[i], word];
+                }
+            }
+        }
+    } 
+    
+    return table[target.length]; 
+}
+
+console.log(countConstructTab('abcdef', ['de','g', 'ab', 'abc', 'f', 'def']))
 
 function countConstruct(target, wordBank, memo={}){
     if(target in memo) return memo[target];
