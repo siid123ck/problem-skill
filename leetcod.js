@@ -79,18 +79,22 @@ function gridTravler(m, n, memo={}){
 
 function gridTravlerTab(m, n){
     let table = Array(m+1).fill().map(()=>Array(n+1).fill(0))
-    for(let i = 1; i<=m; i++){
-        for(let j=1; j<=n; j++){
-            if(i === 1 && j === 1 ){
-               table[1][1] = 1;
-           } else table[i][j] = table[i][j-1] + table[i-1][j]
+    table[1][1] =1;
+    for(let i = 0; i<=m; i++){
+        for(let j=0; j<=n; j++){
+        //     if(i === 1 && j === 1 ){
+        //        table[1][1] = 1;
+        //    } else table[i][j] = table[i][j-1] + table[i-1][j]
+        const current = table[i][j]; 
+        if(j+1 <=n) table[i][j+1] += current;
+        if(i+1 <=m) table[i+1][j] += current;
         }
     }
    return table[m][n]
 
 }
 
-console.log(gridTravlerTab(4, 3))
+console.log(gridTravlerTab(3, 2))
 
 
 // function canSum(arr, target){
