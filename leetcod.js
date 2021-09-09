@@ -244,21 +244,22 @@ function canConstructTab(target, wordBank){
 }
 
 function countConstructTab(target, wordBank){
-    let table = [[]]; 
+    let table = Array(target.length+1).fill(0)
+     table[0] =1;
     for(let i=0; i<target.length; i++){
         if(table[i]){
             for (const word of wordBank) {
                 if(target.slice(i, i+word.length)===word){
-                    table[i+ word.length] = [...table[i], word];
+                    table[i+ word.length] += table[i];
                 }
             }
         }
     } 
-    
+    console.log(table)
     return table[target.length]; 
 }
 
-console.log(countConstructTab('abcdef', ['de','g', 'ab', 'abc', 'f', 'def']))
+// console.log(countConstructTab('abcdef', ['de','g', 'ab', 'abc', 'f', 'def']))
 
 function countConstruct(target, wordBank, memo={}){
     if(target in memo) return memo[target];
@@ -289,6 +290,27 @@ function constructAll(target, wordBank){
     }
     return possibleCombinations;
 }
+
+function constructAllTab(target, wordBank){
+    let table = Array(target.length+1).fill().map(()=>[]); 
+    console.log(table1, table)
+    table[0] = [[]]; 
+    for(let i=0; i<=target.length; i++){
+        if(table[i][0]){
+            for (let word of wordBank) {
+                if(target.slice(i, i + word.length)===word){
+                    let newCombination = table[i].map(subArr => [...subArr, word]); 
+                    table[ i + word.length].push(...newCombination)
+                }
+            }
+        }
+
+    }
+    
+    return table[target.length]
+}
+
+console.log(constructAllTab('abcdef', ['ab', 'd', 'def', 'ed', 'ef', 'c', 'abc']))
 
 function fib(n){
     let table = Array(n+1).fill(0)
