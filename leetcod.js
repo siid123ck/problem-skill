@@ -278,18 +278,20 @@ function countConstruct(target, wordBank, memo={}){
     return count;
 }
 
-function constructAll(target, wordBank){
+function constructAll(target, wordBank, memo={}){
+    if(target in memo) return memo[target]; 
     if(target==="") return [[]]; 
     let possibleCombinations =[]; 
 
     for (let word of wordBank) {
         if(target.indexOf(word)===0){
-            let resultSuffix = constructAll(target.slice(word.length), wordBank);
+            let resultSuffix = constructAll(target.slice(word.length), wordBank, memo);
             let resultWays = resultSuffix.map(way=>[word,...way])
             // if(resultSuffix) 
             possibleCombinations.push(...resultWays)
         } 
     }
+    memo[target] = possibleCombinations;
     return possibleCombinations;
 }
 
@@ -311,7 +313,7 @@ function constructAllTab(target, wordBank){
     return table[target.length]
 }
 
-console.log(constructAll('abcdef', ['ab', 'd', 'def', 'ed', 'ef', 'c', 'abc']))
+console.log(constructAll('aeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef', ['ae', 'eeeeeee', 'eee', 'eeeed', 'eed']))
 
 function fib(n){
     let table = Array(n+1).fill(0)
