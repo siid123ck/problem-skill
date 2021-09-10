@@ -275,7 +275,7 @@ function knapsack(items, values, target, end=items.length, memo={}){
     let key= target+end
     if(key in memo) return memo[key];
     if(end===0 || target===0) return 0; 
-    let max = 0;
+    // let max = 0;
     if(items[end-1] <= target){
         memo[key] = Math.max(values[end-1] + knapsack(items, values, target-items[end-1], end-1), knapsack(items, values, target, end-1))
     } else{
@@ -284,7 +284,22 @@ function knapsack(items, values, target, end=items.length, memo={}){
     return memo[key];
 }
 
-console.log(knapsack([7, 2, 3, 4, 6, 11, 8, 9, 13, 18], [10, 11, 8, 9, 13, 11, 8, 9, 13, 11, 8, 9, 13],70894839438934893487934444434843943954983453597835999000))
+function knapsackTab(items, values, target, end=items.length){
+    let table = Array(end+1).fill([]).map(()=>Array(target+1).fill(0))
+    for(let i=1; i<=end; i++){
+        for(let j=1; j<=target; j++){
+            if(items[i-1]<=j){
+                table[i][j] = Math.max((values[i-1] + table[i-1][j-items[i-1]]), table[i-1][j])
+            } else{
+                table[i][j] = table[i-1][j]
+            }
+        }
+    }
+    // console.log(table)
+    return table[end][target]
+}
+
+console.log(knapsackTab([7, 2, 3, 4, 6], [10, 11, 8, 9, 13],5))
 
 function findRandomEmployee(employees){
     let totalEmployee = employees.length;
