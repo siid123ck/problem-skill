@@ -271,18 +271,20 @@ function fib(n){
 
 // console.log(fib(7))
 
-function knapsack(items, values, target, end=items.length){
+function knapsack(items, values, target, end=items.length, memo={}){
+    let key= target+end
+    if(key in memo) return memo[key];
     if(end===0 || target===0) return 0; 
     let max = 0;
     if(items[end-1] <= target){
-        max = values[end-1] + knapsack(items, values, target-items[end-1], end-1)
+        memo[key] = Math.max(values[end-1] + knapsack(items, values, target-items[end-1], end-1), knapsack(items, values, target, end-1))
     } else{
        return knapsack(items, values, target, end-1)
     }
-    return max;
+    return memo[key];
 }
 
-console.log(knapsack([4, 2, 3, 5], [7, 3, 4, 1], 15))
+console.log(knapsack([7, 2, 3, 4, 6, 11, 8, 9, 13, 18], [10, 11, 8, 9, 13, 11, 8, 9, 13, 11, 8, 9, 13],70894839438934893487934444434843943954983453597835999000))
 
 function findRandomEmployee(employees){
     let totalEmployee = employees.length;
