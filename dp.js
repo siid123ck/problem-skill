@@ -299,20 +299,33 @@ function knapsackTab(items, values, target, end=items.length){
     return table[end][target]
 }
 
-console.log(knapsackTab([7, 2, 3, 4, 6], [10, 11, 8, 9, 13],5))
+// console.log(knapsackTab([7, 2, 3, 4, 6], [10, 11, 8, 9, 13],5))
 
-function findRandomEmployee(employees){
-    let totalEmployee = employees.length;
-    let randomIndex;
-    let randomEmployee;
-    while(totalEmployee >= 0){
-         randomIndex = Math.floor(Math.random()*totalEmployee)
-         randomEmployee = employees[randomIndex]; 
-         employees[randomIndex] = employees.pop()
-         totalEmployee--;
-         console.log(randomEmployee)
+function findArrSum(arr, targetSum){
+    let table = Array(arr.length+1).fill([]).map(()=>Array(targetSum+1)).fill(0); 
+    table[0] = 0;
+    for(let i= 1; i<=arr.length; i++){
+        for(let j=1; j<=targetSum; j++){
+            if(arr[i] <= j){
+                console.log(arr[i-1])
+              table[i][j] =  table[i-1][j-arr[i-1]] || table[i-1][j]
+            } else{
+                table[i][j] = table[i-1][j]
+            }
+             
+        }
     }
-    return randomEmployee;
-} 
+    console.log(table)
+    return table[arr.length][targetSum]
+}
 
-// console.log(findRandomEmployee(['siid', 'susil', 'ramu', 'nabin', 'santosh']))
+console.log(findArrSum([2, 8, 3], 15))
+
+function isSubarrEqual(array){
+    let findArrSum = array=> array.reduce((total, element)=>total+element)
+    if(findArrSum(array) % 2 == 1) return false;
+    // for(let i = 0; )
+    return findArrSum(array)
+}
+
+// console.log(isSubarrEqual([3, 5, 1, 7]))

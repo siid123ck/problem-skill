@@ -56,11 +56,20 @@ var longestPalindrome = function(s) {
 
 // console.log(longestPalindrome("a"))
 
-function test(n){
-    let max =0;
-    console.log(max)
-    if(n===0) return n;
-    max += n + test(n-1)
-    return max;
-}
-console.log(test(4))
+function findRandomEmployee(employees){
+    let totalEmployee = employees.length;
+    let randomIndex;
+    let randomEmployee;
+    while(totalEmployee >= 0){
+         randomIndex = Math.floor(Math.random()*totalEmployee)
+         randomEmployee = employees[randomIndex]; 
+         employees[randomIndex] = employees.pop()
+         totalEmployee--;
+         console.log(randomEmployee)
+    }
+    return randomEmployee;
+} 
+
+// console.log(findRandomEmployee(['siid', 'susil', 'ramu', 'nabin', 'santosh']))
+
+
