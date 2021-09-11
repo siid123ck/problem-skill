@@ -302,24 +302,24 @@ function knapsackTab(items, values, target, end=items.length){
 // console.log(knapsackTab([7, 2, 3, 4, 6], [10, 11, 8, 9, 13],5))
 
 function findArrSum(arr, targetSum){
-    let table = Array(arr.length+1).fill([]).map(()=>Array(targetSum+1)).fill(0); 
-    table[0] = 0;
+    let table = Array(arr.length+1).fill([]).map(()=>Array(targetSum+1).fill(false))
+    for(let i = 0; i< arr.length; i++){
+        table[i][0] = true;
+    }
     for(let i= 1; i<=arr.length; i++){
         for(let j=1; j<=targetSum; j++){
-            if(arr[i] <= j){
-                console.log(arr[i-1])
+              if(i !==0 && arr[i-1] <= j){
               table[i][j] =  table[i-1][j-arr[i-1]] || table[i-1][j]
-            } else{
+            }  else{
                 table[i][j] = table[i-1][j]
             }
              
         }
     }
-    console.log(table)
     return table[arr.length][targetSum]
 }
 
-console.log(findArrSum([2, 8, 3], 15))
+console.log(findArrSum([2, 8, 3, 33], 48))
 
 function isSubarrEqual(array){
     let findArrSum = array=> array.reduce((total, element)=>total+element)
@@ -329,3 +329,11 @@ function isSubarrEqual(array){
 }
 
 // console.log(isSubarrEqual([3, 5, 1, 7]))
+
+function subSetSum(arr, target, n=arr.length){
+    if(target === 0 || arr[n-1]===target) return true; 
+    let isSubSetSum = subSetSum(arr, target, n-1) || subSetSum(arr, target-arr[n-1], n-1);
+    if(isSubSetSum) return true
+    return false;
+}
+// console.log(subSetSum([3, 7, 2, 8], 12))
