@@ -356,10 +356,10 @@ function findArrSumMem(arr, target, n=arr.length, memo={}){
 // console.log(findArrSumMem([2, 8, 3, 33, 43,54,61, 234, 132, 34, 1322, 122,55, 43, 456, 112, 123, 34, 1232, 23434, 43454,43434, 43545, 4335, 4534, 3543, 342, 33, 45334, 43434, 3443, 344334, 4343, 3445, 434, 344343, 54345, 453545, 43434,34543], 94934849034455834813))
 
 
-function subSetSum(arr, target, n=arr.length){
-    if(target === 0 || arr[n-1]===target) return true; 
-    let isSubSetSum = subSetSum(arr, target, n-1) || subSetSum(arr, target-arr[n-1], n-1);
-    if(isSubSetSum) return true
-    return false;
+function subSetEqual(arr, n=arr.length){
+  let arrSum = arr.reduce((total, val)=> total+val); 
+  console.log(arrSum)
+  if(arrSum%2 === 1) return false;
+  return findArrSum(arr, arrSum/2, n)
 }
-// console.log(subSetSum([3, 7, 2, 8], 12))
+console.log(subSetEqual([3, 7, 4, 14]))
