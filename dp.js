@@ -319,15 +319,41 @@ function findArrSum(arr, targetSum){
     return table[arr.length][targetSum]
 }
 
-function findArrSumMem(arr, target, n=arr.length){
-    if(target===0) return true;
-    if(n===0 && target !==0) return false;
+function howFindArrSum(arr, target){ 
+    let table = Array(arr.length+1).fill([]).map(()=>Array(target+1).fill(null)); 
+    for(let i =0; i<=arr.length; i++){
+        table[i][0] = [];
+    }
+    for(let i=1; i<=arr.length; i++){
+        for(let j=1; j<=target; j++){
+            if(arr[i-1] > j){
+                table[i][j] = table[i-1][j];
+            } else{
+                if(table[i-1][j-arr[i-1]]){
+                    table[i][j] = [...table[i-1][j-arr[i-1]], arr[i-1]]
+                } else {
+                    table[i][j] = table[i-1][j]
+                }
+            }
+        }
+    }
 
-    if(arr[n-1] > target) return findArrSumMem(arr, target, n-1); 
-    return findArrSumMem(arr, target, n-1) || findArrSumMem(arr, target-arr[n-1], n-1)
+    return table[arr.length][target]
+}
+// console.log(howFindArrSum([3, 4, 4], 8))
+
+
+function findArrSumMem(arr, target, n=arr.length, memo={}){
+    let key = target + n; 
+    if(key in memo) return memo[key]
+    
+    if(target===0) memo[key] = true;
+    if(n===0 && target !==0) memo[key] =  false;
+
+    if(arr[n-1] > target) memo[key] =findArrSumMem(arr, target, n-1); 
+    memo[key] = findArrSumMem(arr, target, n-1) || findArrSumMem(arr, target-arr[n-1], n-1)
 }
 // console.log(findArrSumMem([2, 8, 3, 33, 43,54,61, 234, 132, 34, 1322, 122,55, 43, 456, 112, 123, 34, 1232, 23434, 43454,43434, 43545, 4335, 4534, 3543, 342, 33, 45334, 43434, 3443, 344334, 4343, 3445, 434, 344343, 54345, 453545, 43434,34543], 94934849034455834813))
-
 
 
 function subSetSum(arr, target, n=arr.length){
