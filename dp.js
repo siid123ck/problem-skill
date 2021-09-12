@@ -319,16 +319,16 @@ function findArrSum(arr, targetSum){
     return table[arr.length][targetSum]
 }
 
-console.log(findArrSum([2, 8, 3, 33], 48))
+function findArrSumMem(arr, target, n=arr.length){
+    if(target===0) return true;
+    if(n===0 && target !==0) return false;
 
-function isSubarrEqual(array){
-    let findArrSum = array=> array.reduce((total, element)=>total+element)
-    if(findArrSum(array) % 2 == 1) return false;
-    // for(let i = 0; )
-    return findArrSum(array)
+    if(arr[n-1] > target) return findArrSumMem(arr, target, n-1); 
+    return findArrSumMem(arr, target, n-1) || findArrSumMem(arr, target-arr[n-1], n-1)
 }
+// console.log(findArrSumMem([2, 8, 3, 33, 43,54,61, 234, 132, 34, 1322, 122,55, 43, 456, 112, 123, 34, 1232, 23434, 43454,43434, 43545, 4335, 4534, 3543, 342, 33, 45334, 43434, 3443, 344334, 4343, 3445, 434, 344343, 54345, 453545, 43434,34543], 94934849034455834813))
 
-// console.log(isSubarrEqual([3, 5, 1, 7]))
+
 
 function subSetSum(arr, target, n=arr.length){
     if(target === 0 || arr[n-1]===target) return true; 
