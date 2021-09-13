@@ -406,13 +406,13 @@ function countSubArrSum(arr, target){
             if(arr[i-1] > j){
                 table[i][j] = table[i-1][j]; 
             } else{
-                if(table[i-1][j-arr[i-1]]){
+                // if(table[i-1][j-arr[i-1]]){
                     // console.log(i, j, table)
                     table[i][j] = table[i-1][j-arr[i-1]] + table[i-1][j]
                     // console.log(table[i-1][j-arr[i-1]], table[i][j], i , j)
-                } else{
-                    table[i][j] = table[i-1][j]
-                }
+                // } else{
+                //     table[i][j] = table[i-1][j]
+                // }
             }
         }
     }
@@ -420,4 +420,37 @@ function countSubArrSum(arr, target){
     return table[arr.length][target]
 }
 
-// console.log(countSubArrSum([1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 39))
+// console.log(countSubArrSum([1, 14, 12, 1, 31, 1, 1, 1, 1, 1], 49))
+
+function minSubsetSumDiff(arr){
+    let arrSum = arr.reduce((total, element)=>total+element); 
+    let table  = Array(arr.length+1).fill([]).map(()=>Array(arrSum+1).fill(false)); 
+    let minDiff = Infinity;
+    let sum1, sum2;
+
+    for(let i=0; i<=arr.length; i++){
+        for(let j=0; j<=arrSum; j++){
+            if(j===0){
+                table[i][j] = true
+            } else if(i===0){
+                table[i][j] = false;
+            } else if(arr[i-1]>j){
+                table[i][j] = table[i-1][j]
+            } else{
+                table[i][j] = table[i-1][j] || table[i-1][j-arr[i-1]]
+            }
+        }
+    }
+    let minSum = Math.floor(arrSum/2)
+    for(let i=0; i<=minSum; i++){
+         sum1 =  i; 
+         sum2 = arrSum - i ;
+        if(table[arr.length][sum1] && minDiff > Math.abs(sum1-sum2)){
+            minDiff = Math.abs(sum1-sum2);
+        }
+    }
+
+    return minDiff;
+}
+
+console.log(minSubsetSumDiff([2, 4, 6, 332]))
