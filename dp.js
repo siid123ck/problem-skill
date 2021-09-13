@@ -453,4 +453,28 @@ function minSubsetSumDiff(arr){
     return minDiff;
 }
 
-console.log(minSubsetSumDiff([2, 4, 6, 332]))
+// console.log(minSubsetSumDiff([2, 4, 6, 332])) 
+
+function toalSubmetWithDiff(arr, diff){
+    let arrSum = arr.reduce((total, element)=> total + element); 
+    let table = Array(arrSum+1).fill([]).map(()=>Array(arr.length+1).fill(false)); 
+
+    for(let i =0; i<=arrSum; i++){
+        for(let j=0; j<=arr.length; j++){
+            if(i===0){
+                table[i][j] = true;
+            } else if(j===0){
+                table[i][j] = false
+            }
+             else if(arr[j-1] > i){
+                table[i][j] = table[i][j-1]; 
+            } else {
+                table[i][j] = table[i][j-1] || table[i-arr[j-1]][j-1]
+            }
+        }
+    }
+    console.log(table)
+    return table[arrSum][arr.length]
+}
+
+console.log(toalSubmetWithDiff([2, 3, 1 , 3], 3))
