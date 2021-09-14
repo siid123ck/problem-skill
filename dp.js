@@ -455,23 +455,23 @@ function minSubsetSumDiff(arr){
 
 // console.log(minSubsetSumDiff([2, 4, 6, 332])) 
 
-function toalSubmetWithDiff(arr, diff){
-    let arrSum = arr.reduce((total, element)=> total + element); 
-    let table = Array(arrSum+1).fill([]).map(()=>Array(arr.length+1).fill(0)); 
+function toalSubmetWithDiff(nums, target){
+    let numsSum = nums.reduce((total, element)=> total + element); 
+    let table = Array(numsSum+1).fill([]).map(()=>Array(nums.length+1).fill(0)); 
     let sum1, sum2, count=0;
 
-    for(let i =0; i<=arrSum; i++){
-        for(let j=0; j<=arr.length; j++){
+    for(let i =0; i<=numsSum; i++){
+        for(let j=0; j<=nums.length; j++){
             if(i===0){
                 table[i][j] = 1;
             } else if(j===0){
                 table[i][j] = 0
             }
-             else if(arr[j-1] > i){
+             else if(nums[j-1] > i){
                 table[i][j] = table[i][j-1]; 
             } else {
-                if(table[i-arr[j-1]][j-1]){
-                    table[i][j] = table[i-arr[j-1]][j-1] + table[i][j-1]
+                if(table[i-nums[j-1]][j-1]){
+                    table[i][j] = table[i-nums[j-1]][j-1] + table[i][j-1]
                 } else {
                     table[i][j] = table[i][j-1]
                 }
@@ -479,13 +479,13 @@ function toalSubmetWithDiff(arr, diff){
         }
     }
     
-    let minSubSum = Math.floor(arrSum/2)
+    let minSubSum = Math.floor(numsSum/2)
     for(let i=0; i<=minSubSum; i++){
         sum1 = i; 
-        sum2 = arrSum-i;
-        if(table[i][arr.length] && Math.abs(sum1-sum2)===diff) count += table[i][arr.length]
+        sum2 = numsSum-i;
+        if(table[i][nums.length] && Math.abs(sum1-sum2)===target) count += table[i][nums.length]
     }
     return count;
 }
 
-console.log(toalSubmetWithDiff([1 , 2,  3, 3], 3))
+console.log(toalSubmetWithDiff([1, 0, 0], 1))
