@@ -299,20 +299,16 @@ function knapsackTab(items, values, target, end=items.length){
     return table[end][target]
 }
 
-function unboundedKnapsack(values, items, target, end = values.length){
-    if(end===0) return 0; 
-    if(target===0) return 0; 
-    let max =0;
+function unboundedKnapsack(items, values, target, end = values.length){
+    if(end===0 || target===0) return 0; 
     if(items[end-1] > target){
-        max= unboundedKnapsack(values, items, target, end-1)
+        return unboundedKnapsack(items, values, target, end-1)
     } else {
-        max= Math.max(values[end-1] + unboundedKnapsack(values, items, target-items[end-1]), unboundedKnapsack(values, items, target, end-1))
+        return Math.max(values[end-1] + unboundedKnapsack(items, values, target-items[end-1], end), unboundedKnapsack(items, values, target, end-1))
     }
-    console.log('max', max)
-    return max;
 }
 
-console.log(unboundedKnapsack([7, 2, 3, 4, 6], [10, 11, 8, 9, 13],5))
+console.log(unboundedKnapsack([7, 2, 3, 4, 6], [10, 7, 8, 9, 13], 7))
 
 function findArrSum(arr, targetSum){
     let table = Array(arr.length+1).fill([]).map(()=>Array(targetSum+1).fill(false))
