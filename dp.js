@@ -312,7 +312,23 @@ function unboundedKnapsack(items, values, target, end = values.length, memo={}){
     return memo[key]
 }
 
-console.log(unboundedKnapsack([7, 2, 3, 4, 6], [10, 7, 8, 9, 13], 8))
+function unboundedKnapsackTab(items, values, target, end = values.length){
+    let table = Array(end+1).fill([]).map(()=>Array(target+1).fill(0))
+
+    for(let i=1; i<=end; i++){
+        for(let j=1; j<=target; j++){
+            if(items[i-1] > j){
+                table[i][j] = table[i-1][j];
+            } else{
+                table[i][j] = Math.max(values[i-1]+table[i][j-items[i-1]], table[i-1][j])
+            }
+        }
+    }
+    console.log(table)
+    return table[end][target]
+}
+
+console.log(unboundedKnapsackTab([7, 2, 3, 4, 6], [10, 7, 8, 9, 13], 3))
 
 function findArrSum(arr, targetSum){
     let table = Array(arr.length+1).fill([]).map(()=>Array(targetSum+1).fill(false))
